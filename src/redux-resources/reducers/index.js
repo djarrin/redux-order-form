@@ -1,4 +1,6 @@
 import {combineReducers} from 'redux';
-import defaultReducer from 'redux-resources/reducers/defaultReducer';
+import offerReducer from './offersReducers';
+import emailFieldsReducer from './emailFieldsReducer';
+import taxReducer from './taxReducer';
 
-export default combineReducers({defaultReducer});
+export default combineReducers({offerReducer, emailFieldsReducer, taxReducer});

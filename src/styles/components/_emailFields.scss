@@ -1,0 +1,13 @@
+.email-fields-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  
+    label {
+      display: block; // Ensures that label and input stack vertically
+  
+      input {
+        margin-top: 5px; // Space between the label text and the input field
+      }
+    }
+  }

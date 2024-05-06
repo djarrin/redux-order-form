@@ -1,26 +1,23 @@
 import React from 'react';
 import 'assets/styles/bootstrap-grid.min.css';
-import logo from './logo.svg';
 import 'App.scss';
 import {connect} from 'react-redux';
+import Offers from 'components/Offers';
+import SubmitButton from 'components/SubmitButton';
+import TaxPreviewFields from 'components/TaxPreviewFields';
+import BillingAddressFields from 'components/BillingAddressFields';
+import CreditCardFields from 'components/CreditCardFields';
+import EmailFields from 'components/EmailFields';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Offers />
+      <EmailFields />
+      <CreditCardFields />
+      <BillingAddressFields />
+      <TaxPreviewFields />
+      <SubmitButton />
     </div>
   );
 }
