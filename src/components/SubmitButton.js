@@ -1,13 +1,10 @@
 import React from "react";
-import {useSelector} from 'react-redux';
 
-const SubmitButton = () => {
-    const taxStatus = useSelector(state => state.taxReducer.state);
-    const emailStatus = useSelector(state => state.emailFieldsReducer.state);
+const SubmitButton = ({emailState, taxState}) => {
 
-    const isLoading = taxStatus === 'loading' || emailStatus === 'loading';
+    const isLoading = taxState === 'loading' || emailState === 'loading';
     const buttonText = isLoading ? "Loading..." : "Complete Purchase";
-    const isDisabled = isLoading || emailStatus !== 'valid';
+    const isDisabled = isLoading || emailState !== 'valid';
 
     return (
         <div className="submit-button-container">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'assets/styles/bootstrap-grid.min.css';
 import 'App.scss';
 import {connect} from 'react-redux';
@@ -10,16 +10,47 @@ import CreditCardFields from 'components/CreditCardFields';
 import EmailFields from 'components/EmailFields';
 
 function App() {
+  const [values, setValues] = useState({
+    offerName: 'Offer 1',
+    price: 199,
+    emailState: 'empty',
+    taxState: 'complete'
+  })
+
+  const handleChange = (key, value) => {
+    if (typeof value === 'object' && value !== null) {
+      setValues(prevValues => ({
+        ...prevValues,
+        ...value
+      }));
+    } else {
+      setValues(prevValues => ({
+        ...prevValues,
+        [key]: value
+      }));
+    }
+  };
+
   return (
     <div className="App">
-      <Offers />
-      <EmailFields />
+      <Offers 
+        handler={(offer) => handleChange(null, offer)} 
+      />
+      <EmailFields 
+        handler={(state) => handleChange('emailState', state)}
+      />
       <CreditCardFields />
       <BillingAddressFields />
-      <TaxPreviewFields />
-      <SubmitButton />
+      <TaxPreviewFields 
+        offerPrice={values.price}
+        handler={(state) => handleChange('taxState', state)} 
+      />
+      <SubmitButton 
+        emailState={values.emailState}
+        taxState={values.taxState}
+      />
     </div>
   );
 }
 
-export default connect()(App);
+export default App;

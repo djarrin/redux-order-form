@@ -1,25 +1,20 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
 import { calcTax } from 'api-resources/calcTax';
-import { setTaxCalculated, setTaxLoading } from 'redux-resources/actions/taxPreviewActions';
 
-const TaxPreviewFields = () => {
-    const price = useSelector(state => state.offerReducer.price)
+const TaxPreviewFields = ({ offerPrice, handler }) => {
     const [tax, setTax] = useState(19);
 
-    const dispatch = useDispatch();
-
     useEffect(() => {
-        console.log('current price selected: ', price)
-        dispatch(setTaxLoading())
-        calcTax(price)
+        console.log('current price selected: ', offerPrice)
+        handler('loading')
+        calcTax(offerPrice)
         .then((taxResult) => {
             setTax(Number(taxResult))
-            dispatch(setTaxCalculated()); 
+            handler('complete')
         });
-    }, [price])
+    }, [offerPrice])
 
-    const formattedPrice = Number(price);
+    const formattedPrice = Number(offerPrice);
     const formattedTax = Number(tax);
     const total = formattedPrice + formattedTax;
 

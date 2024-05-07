@@ -1,25 +1,22 @@
 import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
-import { setEmailStateLoading, setEmailStateValid, setEmailStateInValid } from 'redux-resources/actions/emailFieldActions';
-import {checkEmail} from 'api-resources/checkEmail';
+import { checkEmail } from 'api-resources/checkEmail';
 
-const EmailFields = () => {
+const EmailFields = ({ handler }) => {
     const [email1, setEmail1] = useState('');
     const [email2, setEmail2] = useState('');
-    const dispatch = useDispatch();
 
     const handleEmail1Change = (event) => {
         const email = event.target.value;
         setEmail1(email);
         
         if (email) {
-            dispatch(setEmailStateLoading()); 
+            handler('loading')
             checkEmail(email).then(() => {
                 if (email1 === email2) {
-                    dispatch(setEmailStateValid());
+                    handler('valid')
                     return 
                 }
-                dispatch(setEmailStateInValid())
+                handler('invalid')
             });
         }
     };
@@ -29,11 +26,11 @@ const EmailFields = () => {
         setEmail2(email);
 
         if (email1 !== email2) {
-            dispatch(setEmailStateInValid())
+            handler('invalid')
             return
         }
 
-        dispatch(setEmailStateValid())
+        handler('valid')
     }
 
     return (
